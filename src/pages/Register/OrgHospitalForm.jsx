@@ -16,22 +16,22 @@ const OrgHospitalForm = ({ type }) => {
       </Form.Item>
 
       <Form.Item name="owner" label="Owner">
-        <Input />
+        <Input required/>
       </Form.Item>
       <Form.Item name="email" label="Email">
-        <Input />
+        <Input required/>
       </Form.Item>
       <Form.Item name="phone" label="Phone">
-        <Input />
+        <Input required />
       </Form.Item>
       <Form.Item name="website" label="Website">
-        <Input />
+        <Input required />
       </Form.Item>
       <Form.Item name="password" label="Password">
-        <Input type="password" />
+        <Input type="password" required/>
       </Form.Item>
       <Form.Item name="address" label="Address" className="md:col-span-2">
-        <TextArea />
+        <TextArea required/>
       </Form.Item>
     </>
   );

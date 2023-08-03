@@ -13,7 +13,7 @@ const Register = () => {
    console.log(values)
   }
   return (
-    <div className="flex md:h-screen items-center p-3 justify-center bg-primary">
+    <div className="flex h-screen items-center p-3 justify-center bg-primary">
       <Form
         layout="vertical"
         className="bg-white rounded shadow grid p-5 gap-5 grid-cols-1 md:grid-cols-2 w-[90%] md:w-1/2"
@@ -38,16 +38,16 @@ const Register = () => {
         {type === "donar" && (
           <>
             <Form.Item label="Name" name='name'>
-              <Input />
+              <Input required/>
             </Form.Item>
             <Form.Item label="Email" name='email'>
-              <Input />
+              <Input required/>
             </Form.Item>
             <Form.Item label="Phone" name='phone'>
-              <Input />
+              <Input required />
             </Form.Item>
             <Form.Item label="Password" name='password'>
-              <Input type="password" />
+              <Input type="password" required/>
             </Form.Item>
           </>
         )}
