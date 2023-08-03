@@ -1,17 +1,18 @@
-import { Button } from 'antd';
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 function App() {
- 
-
   return (
-    <div>
-         <h1>BloodConnect+</h1>
-         <Button type="primary">Primary Button</Button>
-
-    </div>
-  )
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/register" element={<Register />}></Route>
+    </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
- 
+export default App;
