@@ -1,15 +1,26 @@
 /* eslint-disable react/no-unescaped-entities */
 // import React from 'react';
 
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, message } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { LoginUser } from "../../apicalls/users";
 
 const Login = () => {
   const [type, setType] = useState("donar");
 
-  const onFinish = (values) => {
-    console.log(values);
+  const onFinish =  async (values) => {
+    try {
+      const response = await LoginUser(values);
+
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
   return (
     <div className="flex h-screen items-center p-3 justify-center bg-primary">

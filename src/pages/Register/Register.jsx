@@ -1,17 +1,28 @@
 // import React from 'react';
 
-import { Button, Form, Input, Radio } from "antd";
+import { Button, Form, Input, Radio, message } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import OrgHospitalForm from "./OrgHospitalForm";
+import { RegisterUser } from "../../apicalls/users";
 // import Link from "antd/es/typography/Link";
 
 const Register = () => {
   const [type, setType] = useState("donar");
 
-  const onFinish =(values)=>{
-   console.log(values)
-  }
+  const onFinish = async (values) => {
+    try {
+      const response = await RegisterUser({ ...values, userType: type });
+
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        throw new Error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
   return (
     <div className="flex h-screen items-center p-3 justify-center bg-primary">
       <Form
@@ -37,23 +48,28 @@ const Register = () => {
         </Radio.Group>
         {type === "donar" && (
           <>
-            <Form.Item label="Name" name='name'>
-              <Input required/>
-            </Form.Item>
-            <Form.Item label="Email" name='email'>
-              <Input required/>
-            </Form.Item>
-            <Form.Item label="Phone" name='phone'>
+            <Form.Item label="Name" name="name">
               <Input required />
             </Form.Item>
-            <Form.Item label="Password" name='password'>
-              <Input type="password" required/>
+            <Form.Item label="Email" name="email">
+              <Input required />
+            </Form.Item>
+            <Form.Item label="Phone" name="phone">
+              <Input required />
+            </Form.Item>
+            <Form.Item label="Password" name="password">
+              <Input type="password" required />
             </Form.Item>
           </>
         )}
 
         {type !== "donar" && <OrgHospitalForm type={type} />}
-        <Button type="primary" className="md:col-span-2" block htmlType="submit">
+        <Button
+          type="primary"
+          className="md:col-span-2"
+          block
+          htmlType="submit"
+        >
           Register
         </Button>
         <Link
