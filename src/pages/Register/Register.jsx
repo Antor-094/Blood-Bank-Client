@@ -1,15 +1,15 @@
 // import React from 'react';
 
 import { Button, Form, Input, Radio, message } from "antd";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import OrgHospitalForm from "./OrgHospitalForm";
 import { RegisterUser } from "../../apicalls/users";
 // import Link from "antd/es/typography/Link";
 
 const Register = () => {
   const [type, setType] = useState("donar");
-
+  const navigate = useNavigate()
   const onFinish = async (values) => {
     try {
       const response = await RegisterUser({ ...values, userType: type });
@@ -23,6 +23,11 @@ const Register = () => {
       message.error(error.message);
     }
   };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, []);
   return (
     <div className="flex h-screen items-center p-3 justify-center bg-primary">
       <Form
