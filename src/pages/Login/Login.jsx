@@ -5,14 +5,19 @@ import { Button, Form, Input, Radio, message } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../../apicalls/users";
+import { useDispatch } from "react-redux";
+import { SetLoading } from "../../redux/loadersSlice";
+import { getAntdInputValidation } from "../../utils/helpers";
 
 const Login = () => {
   const [type, setType] = useState("donar");
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const onFinish =  async (values) => {
     try {
+      dispatch(SetLoading(true));
       const response = await LoginUser(values);
-
+      dispatch(SetLoading(false));
       if (response.success) {
         message.success(response.message);
         localStorage.setItem("token",response.data)
@@ -21,6 +26,7 @@ const Login = () => {
         throw new Error(response.message);
       }
     } catch (error) {
+      dispatch(SetLoading(false));
       message.error(error.message);
     }
   };
@@ -53,12 +59,12 @@ const Login = () => {
           <Radio value="organization">Organization</Radio>
         </Radio.Group>
 
-        <Form.Item label="Email" name="email">
-          <Input required />
+        <Form.Item label="Email" name="email" rules={getAntdInputValidation()}>
+          <Input  />
         </Form.Item>
 
-        <Form.Item label="Password" name="password">
-          <Input type="password" required />
+        <Form.Item label="Password" name="password" rules={getAntdInputValidation()}>
+          <Input type="password"  />
         </Form.Item>
 
         <Button

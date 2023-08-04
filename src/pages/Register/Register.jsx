@@ -5,21 +5,28 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OrgHospitalForm from "./OrgHospitalForm";
 import { RegisterUser } from "../../apicalls/users";
+import { useDispatch } from "react-redux";
+import { SetLoading } from "../../redux/loadersSlice";
+import { getAntdInputValidation } from "../../utils/helpers";
 // import Link from "antd/es/typography/Link";
 
 const Register = () => {
   const [type, setType] = useState("donar");
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
+      dispatch(SetLoading(true))
       const response = await RegisterUser({ ...values, userType: type });
-
+      dispatch(SetLoading(false))
       if (response.success) {
         message.success(response.message);
+        navigate('/login')
       } else {
         throw new Error(response.message);
       }
     } catch (error) {
+      dispatch(SetLoading(false))
       message.error(error.message);
     }
   };
@@ -53,17 +60,17 @@ const Register = () => {
         </Radio.Group>
         {type === "donar" && (
           <>
-            <Form.Item label="Name" name="name">
-              <Input required />
+            <Form.Item label="Name" name="name" rules={getAntdInputValidation()}>
+              <Input  />
             </Form.Item>
-            <Form.Item label="Email" name="email">
-              <Input required />
+            <Form.Item label="Email" name="email" rules={getAntdInputValidation()}>
+              <Input  />
             </Form.Item>
-            <Form.Item label="Phone" name="phone">
-              <Input required />
+            <Form.Item label="Phone" name="phone" rules={getAntdInputValidation()}>
+              <Input  />
             </Form.Item>
-            <Form.Item label="Password" name="password">
-              <Input type="password" required />
+            <Form.Item label="Password" name="password" rules={getAntdInputValidation()}>
+              <Input type="password"  />
             </Form.Item>
           </>
         )}
