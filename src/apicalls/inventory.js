@@ -1,4 +1,4 @@
-import { axiosInstance } from ".";
+import { axiosInstance } from "./userApi";
 
 export const AddInventory = (data) => {
   return axiosInstance("post", "http://localhost:5000/api/inventory/add", data);

@@ -2,6 +2,10 @@
 
 import { Tabs } from "antd";
 import { useSelector } from "react-redux";
+import Donars from "./Donars/Donars";
+import Inventory from "./Inventory/Inventory";
+import Hospitals from "./Hospitals/Hospitals";
+import Organizations from "./Organizations/Organizations";
 
 const Profile = () => {
     const { currentUser } = useSelector((state) => state.users);
@@ -11,18 +15,18 @@ const Profile = () => {
         {currentUser.userType === "organization" && (
           <>
             <Tabs.TabPane tab="Inventory" key="1">
-              {/* <Inventory /> */}
+              <Inventory />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Donars" key="2">
-              {/* <Donars /> */}
+              <Donars />
             </Tabs.TabPane>
             <Tabs.TabPane tab="Hospitals" key="3">
-              {/* <Hospitals /> */}
+              <Hospitals />
             </Tabs.TabPane>
           </>
         )}
 
-        {/* {currentUser.userType === "donar" && (
+        {currentUser.userType === "donar" && (
           <>
             <Tabs.TabPane tab="Donations" key="4">
               <InvetoryTable
@@ -54,7 +58,7 @@ const Profile = () => {
               <Organizations userType="hospital" />
             </Tabs.TabPane>
           </>
-        )} */}
+        )}
       </Tabs>
     </div>
     );

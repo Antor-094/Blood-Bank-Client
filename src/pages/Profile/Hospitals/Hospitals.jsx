@@ -2,17 +2,17 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { SetLoading } from "../../../redux/loadersSlice";
 import { Table, message } from "antd";
-import {GetAllDonarsOfAnOrganization} from '../../../apicalls/users'
+import { GetAllHospitalsOfAnOrganization } from "../../../apicalls/users";
 import { getDateFormat } from "../../../utils/helpers";
 
-function Donars() {
+function Hospitals() {
   const [data, setData] = React.useState([]);
   const dispatch = useDispatch();
 
   const getData = async () => {
     try {
       dispatch(SetLoading(true));
-      const response = await GetAllDonarsOfAnOrganization();
+      const response = await GetAllHospitalsOfAnOrganization();
       dispatch(SetLoading(false));
       if (response.success) {
         setData(response.data);
@@ -27,8 +27,8 @@ function Donars() {
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
+      title: "Hospital Name",
+      dataIndex: "hospitalName",
     },
     {
       title: "Email",
@@ -37,6 +37,10 @@ function Donars() {
     {
       title: "Phone",
       dataIndex: "phone",
+    },
+    {
+        title: "Address",
+        dataIndex: "address",
     },
     {
       title: "Created At",
@@ -55,4 +59,4 @@ function Donars() {
   );
 }
 
-export default Donars;
+export default Hospitals;
