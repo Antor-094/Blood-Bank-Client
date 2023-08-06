@@ -6,6 +6,7 @@ import Donars from "./Donars/Donars";
 import Inventory from "./Inventory/Inventory";
 import Hospitals from "./Hospitals/Hospitals";
 import Organizations from "./Organizations/Organizations";
+import InvetoryTable from "../../components/InvetoryTable";
 
 const Profile = () => {
     const { currentUser } = useSelector((state) => state.users);
